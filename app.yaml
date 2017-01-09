@@ -1,0 +1,30 @@
+application: seaco-gis04
+version: 1
+runtime: php55
+api_version: 1
+
+handlers:
+#Javascript
+- url: /js
+  static_dir: js
+  
+#css
+- url: /css
+  static_dir: css
+  
+# Serve php scripts
+- url: /(.+\.php)$
+  script: \1
+  
+# Image
+#- url: /(.*\.(gif|png|jpg))
+ # static_files: static/\1
+  #upload: static/.*\.(gif|png|jpg)$
+  
+# Image
+- url: /images
+  static_dir: images
+  
+# Serve php scripts for web
+- url: /website/(.+\.php)$
+  script: \1
