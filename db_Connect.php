@@ -7,13 +7,14 @@
 		//$row = $result->fetch_row();
 		//printf("Default database is %s.\n", $row[0]);
 		//$result->close();
-	   
+	  
 	   //define('HOST','127.0.0.1');
 	  //define('HOST','104.199.141.48');
 	  //define('HOST','104.199.149.101');
-	  define('HOST','35.185.137.169');
+	  //define('HOST','35.185.137.169');
+	  define('HOST','104.155.199.201');
 	  define('USER','root');
-	  define('PASS','');
+	  define('PASS','seaco__2017');
 	 // define('PASS','root');
 	  define('DB','gis');
 	 $con = mysqli_connect(HOST,USER,PASS,DB) or die('Unable to Connect');
