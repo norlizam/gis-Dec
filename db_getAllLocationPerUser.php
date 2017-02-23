@@ -18,7 +18,7 @@
 			require_once('db_Connect.php');
 
 			//start select statement
-			if($userRegtype == "S0"){
+			if($userRegtype == "S1"){ //S0 = ALL STAFF, S1 = TEAM LEADER
 				if($subValues == "0"){
 					//SQL 1
 					$sql = "SELECT gis.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gis
