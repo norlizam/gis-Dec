@@ -11,7 +11,7 @@
 			require_once('db_Connect.php');
 
 			//SQL
-			$sql ="SELECT * FROM gis WHERE latitude = '$latitude' AND longitude ='$longitude'";
+			$sql ="SELECT * FROM gisDetail WHERE latitude = '$latitude' AND longitude ='$longitude'";
 
 
 			//getting result 

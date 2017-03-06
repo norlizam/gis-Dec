@@ -21,15 +21,15 @@
 			if($userRegtype == "S1"){ //S0 = ALL STAFF, S1 = TEAM LEADER
 				if($subValues == "0"){
 					//SQL 1
-					$sql = "SELECT gis.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gis
-							LEFT JOIN gisUser as gis1 ON gis.createdBy = gis1.userId
-							LEFT JOIN gisUser as gis2 ON gis.modifiedBy = gis2.userId
+					$sql = "SELECT gisDetail.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gisDetail
+							LEFT JOIN gisUser as gis1 ON gisDetail.createdBy = gis1.userId
+							LEFT JOIN gisUser as gis2 ON gisDetail.modifiedBy = gis2.userId
 							ORDER BY id desc limit $start,$per_page";
 				}else{
 					//SQL 2
-					$sql = "SELECT gis.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gis
-							LEFT JOIN gisUser as gis1 ON gis.createdBy = gis1.userId
-							LEFT JOIN gisUser as gis2 ON gis.modifiedBy = gis2.userId 
+					$sql = "SELECT gisDetail.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gisDetail
+							LEFT JOIN gisUser as gis1 ON gisDetail.createdBy = gis1.userId
+							LEFT JOIN gisUser as gis2 ON gisDetail.modifiedBy = gis2.userId 
 							WHERE address2_mukim = '$subValues' 
 							ORDER BY id desc limit $start,$per_page";
 
@@ -37,16 +37,16 @@
 			}else{
 				if($subValues == "0"){
 					//SQL 1
-					$sql = "SELECT gis.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gis
-							LEFT JOIN gisUser as gis1 ON gis.createdBy = gis1.userId
-							LEFT JOIN gisUser as gis2 ON gis.modifiedBy = gis2.userId 
+					$sql = "SELECT gisDetail.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gisDetail
+							LEFT JOIN gisUser as gis1 ON gisDetail.createdBy = gis1.userId
+							LEFT JOIN gisUser as gis2 ON gisDetail.modifiedBy = gis2.userId 
 							WHERE createdBy = '$insertBy'  
 							ORDER BY id desc limit $start,$per_page";
 				}else{
 					//SQL 2
-					$sql = "SELECT gis.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gis
-							LEFT JOIN gisUser as gis1 ON gis.createdBy = gis1.userId
-							LEFT JOIN gisUser as gis2 ON gis.modifiedBy = gis2.userId 
+					$sql = "SELECT gisDetail.*, gis1.userFullName as Createdby, gis2.userFullName as Modifiedby FROM gisDetail
+							LEFT JOIN gisUser as gis1 ON gisDetail.createdBy = gis1.userId
+							LEFT JOIN gisUser as gis2 ON gisDetail.modifiedBy = gis2.userId 
 							WHERE createdBy = '$insertBy' AND address2_mukim = '$subValues' 
 							ORDER BY id desc limit $start,$per_page";
 
@@ -82,7 +82,6 @@
 						"createdBy"=>$row['createdBy'],
 						"createdDate"=>$row['createdDate'],
 						"modifiedBy"=>$row['modifiedBy'],
-						"modifiedDate"=>$row['modifiedDate'],
 						"modifiedDate"=>$row['modifiedDate'],
 						"Createdby"=>$row['Createdby'],
 						"Modifiedby"=>$row['Modifiedby']));

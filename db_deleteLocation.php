@@ -12,7 +12,7 @@
 		 $currentDate = $date->format('Y-m-d H:i:s');
 		
 		//Creating an sql query		
-		$sql = "DELETE FROM `gis`.`gis` WHERE `id`='$id'";
+		$sql = "DELETE FROM `gis`.`gisDetail` WHERE `id`='$id'";
 		
 		//Executing query to database
 		if(mysqli_query($con,$sql)){

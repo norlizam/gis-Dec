@@ -6,7 +6,7 @@
 	require_once('db_Connect.php');
 
 	//SQL
-	$sql ="SELECT * FROM gis";
+	$sql ="SELECT * FROM gisDetail";
 
 	 //getting result 
 	$r = mysqli_query($con,$sql);

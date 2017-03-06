@@ -30,14 +30,13 @@
 			//start currentDate
 			$date = new DateTime('now', new DateTimeZone('Asia/Kuala_Lumpur'));
 			$currentDate = $date->format('Y-m-d H:i:s');
-			//echo $currentDate;
 			//end currentDate
 			
 			//importing dbConnect.php script 
 			require_once('db_Connect.php');
 
 			//SQL
-			$sql ="SELECT * FROM gis WHERE latitude = '$latitude' AND longitude ='$longitude'";
+			$sql ="SELECT * FROM gisDetail WHERE latitude = '$latitude' AND longitude ='$longitude'";
 
 
 			//getting result 
@@ -52,17 +51,16 @@
 
 				//set if exist return true, else false
 				if($row<=0){
-					$sqlInsert = "INSERT INTO gis (seaco_barcode,latitude,longitude,address1,address2,address2_no,address2_streetType,address2_streetName,
-							address2_areaType,address2_areaName,address2_batu,address2_mukim,createdBy,createdDate,modifiedBy) 
-							VALUES ('$seaco_barcode','$latitude','$longitude','$address1','$address2','$address2_no','$address2_streetType','$address2_streetName',
-									'$address2_areaType','$address2_areaName','$address2_batu','$address2_mukim','$createdBy','$currentDate','$modifiedBy')";
-
+					$sql= "INSERT INTO gisDetail (seaco_barcode,latitude,longitude,address1,address2,
+													address2_no,address2_streetType,address2_streetName,address2_areaType,address2_areaName,
+													address2_batu,address2_mukim,createdBy,createdDate,modifiedBy) 
+											VALUES ('$seaco_barcode','$latitude','$longitude','$address1','$address2',
+													'$address2_no','$address2_streetType','$address2_streetName','$address2_areaType','$address2_areaName',
+													'$address2_batu','$address2_mukim','$createdBy','$currentDate','$modifiedBy')";
+						
 									//Executing query to database
-									if(mysqli_query($con,$sqlInsert)){
-										//echo 'Location Added Successfully';
-									}else{
-										//echo 'Could Not Add Location';
-									}
+									mysqli_query($con, $sql);
+									
 							$checkLatLonNotDup = 'true';
 				}else{
 					$checkLatLonNotDup = 'false';
@@ -74,7 +72,17 @@
 
 				//set if exist return true, else false
 				if($row<=0){
-					$sqlUpdate = "UPDATE gis SET 
+				
+					$sql = "INSERT INTO gisDetailHist (id_history, seaco_barcode, latitude, longitude, address1, 
+									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
+									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
+									modifiedBy, modifiedDate)
+									SELECT id, seaco_barcode, latitude, longitude, address1, 
+									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
+									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
+									'$modifiedBy', '$currentDate' from `gisDetail` WHERE id = '$id';";
+					
+					$sql .= "UPDATE gisDetail SET 
 							seaco_barcode = '$seaco_barcode', 
 							latitude = '$latitude', 
 							longitude = '$longitude', 
@@ -91,16 +99,23 @@
 							modifiedDate = '$currentDate'
 							WHERE id ='$id'";
 
-							if(mysqli_query($con,$sqlUpdate)){
-								//echo 'Location Added Successfully';
-							}else{
-								//echo 'Could Not Add Location';
-							}
-
+							//Executing query to database
+							mysqli_multi_query($con, $sql);
+				
 					$checkLatLonNotDup = 'true';
 				}else{
 					if($id == $row['id']){
-						$sqlUpdate = "UPDATE gis SET 
+					
+						$sql = "INSERT INTO gisDetailHist (id_history, seaco_barcode, latitude, longitude, address1, 
+									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
+									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
+									modifiedBy, modifiedDate)
+									SELECT id, seaco_barcode, latitude, longitude, address1, 
+									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
+									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
+									'$modifiedBy', '$currentDate' from `gisDetail` WHERE id = '$id';";
+									
+						$sql .= "UPDATE gisDetail SET 
 								seaco_barcode = '$seaco_barcode', 
 								latitude = '$latitude', 
 								longitude = '$longitude', 
@@ -117,11 +132,8 @@
 								modifiedDate = '$currentDate' 
 								WHERE id ='$id'";
 
-								if(mysqli_query($con,$sqlUpdate)){
-									//echo 'Location Added Successfully';
-								}else{
-									//echo 'Could Not Add Location';
-								}
+								//Executing query to database
+								mysqli_multi_query($con, $sql);
 
 						$checkLatLonNotDup = 'true';
 					}else{
