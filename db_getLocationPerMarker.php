@@ -45,7 +45,8 @@
 						"createdBy"=>$row['createdBy'],
 						"createdDate"=>$row['createdDate'],
 						"modifiedBy"=>$row['modifiedBy'],
-						"modifiedDate"=>$row['modifiedDate']
+						"modifiedDate"=>$row['modifiedDate'],
+						"status"=>$row['status']
 						));
 
 			}else{
@@ -70,7 +71,8 @@
 						"createdBy"=>$row['createdBy'],
 						"createdDate"=>$row['createdDate'],
 						"modifiedBy"=>$row['modifiedBy'],
-						"modifiedDate"=>$row['modifiedDate']
+						"modifiedDate"=>$row['modifiedDate'],
+						"status"=>$row['status']
 						));
 
 			}

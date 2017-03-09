@@ -20,6 +20,7 @@
 			$createdBy = $_POST['createdBy'];
 			$modifiedBy = $_POST['modifiedBy'];
 			$isEdit = $_POST['isEdit'];
+			$status = $_POST['status'];
 			
 			//start reverse geocode
 			$address=file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=AIzaSyBoorH83D_jpkis-uzIQv5KHjZ3vbt4UaA");
@@ -53,10 +54,10 @@
 				if($row<=0){
 					$sql= "INSERT INTO gisDetail (seaco_barcode,latitude,longitude,address1,address2,
 													address2_no,address2_streetType,address2_streetName,address2_areaType,address2_areaName,
-													address2_batu,address2_mukim,createdBy,createdDate,modifiedBy) 
+													address2_batu,address2_mukim,createdBy,createdDate,modifiedBy, status) 
 											VALUES ('$seaco_barcode','$latitude','$longitude','$address1','$address2',
 													'$address2_no','$address2_streetType','$address2_streetName','$address2_areaType','$address2_areaName',
-													'$address2_batu','$address2_mukim','$createdBy','$currentDate','$modifiedBy')";
+													'$address2_batu','$address2_mukim','$createdBy','$currentDate','$modifiedBy','$status')";
 						
 									//Executing query to database
 									mysqli_query($con, $sql);
@@ -76,11 +77,11 @@
 					$sql = "INSERT INTO gisDetailHist (id_history, seaco_barcode, latitude, longitude, address1, 
 									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
 									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
-									modifiedBy, modifiedDate)
+									modifiedBy, modifiedDate, status)
 									SELECT id, seaco_barcode, latitude, longitude, address1, 
 									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
 									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
-									'$modifiedBy', '$currentDate' from `gisDetail` WHERE id = '$id';";
+									'$modifiedBy', '$currentDate', status from `gisDetail` WHERE id = '$id';";
 					
 					$sql .= "UPDATE gisDetail SET 
 							seaco_barcode = '$seaco_barcode', 
@@ -96,7 +97,8 @@
 							address2_batu = '$address2_batu', 
 							address2_mukim = '$address2_mukim', 
 							modifiedBy = '$modifiedBy', 
-							modifiedDate = '$currentDate'
+							modifiedDate = '$currentDate',
+							status = '$status'
 							WHERE id ='$id'";
 
 							//Executing query to database
@@ -109,11 +111,11 @@
 						$sql = "INSERT INTO gisDetailHist (id_history, seaco_barcode, latitude, longitude, address1, 
 									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
 									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
-									modifiedBy, modifiedDate)
+									modifiedBy, modifiedDate, status)
 									SELECT id, seaco_barcode, latitude, longitude, address1, 
 									address2, address2_no, address2_streetType, address2_streetName, address2_areaType, 
 									address2_areaName, address2_batu, address2_mukim, createdBy, createdDate, 
-									'$modifiedBy', '$currentDate' from `gisDetail` WHERE id = '$id';";
+									'$modifiedBy', '$currentDate', status from `gisDetail` WHERE id = '$id';";
 									
 						$sql .= "UPDATE gisDetail SET 
 								seaco_barcode = '$seaco_barcode', 
@@ -129,7 +131,8 @@
 								address2_batu = '$address2_batu', 
 								address2_mukim = '$address2_mukim', 
 								modifiedBy = '$modifiedBy', 
-								modifiedDate = '$currentDate' 
+								modifiedDate = '$currentDate',
+								status = '$status'
 								WHERE id ='$id'";
 
 								//Executing query to database
